@@ -1,0 +1,16 @@
+{
+  "name": "ai-text-image-translator",
+  "version": "1.0.0",
+  "description": "Advanced AI-powered translator with OCR, Hinglish support, and OpenAI backend.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "openai": "^6.5.0"
+  }
+}

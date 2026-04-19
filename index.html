@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Text & Image Translator</title>
+    <meta
+      name="description"
+      content="An advanced AI-powered translator with smart text translation, OCR image translation, dark mode, copy, and speech support."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="app-card">
+        <header class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">AI Translation Studio</p>
+            <h1>Translate messy text, Hinglish, and images with one workflow.</h1>
+            <p class="hero-text">
+              The app auto-detects the source language, cleans spelling when
+              needed, extracts text from images, and translates the result into
+              your chosen language.
+            </p>
+            <div class="hero-tags">
+              <span class="pill">Auto-detect</span>
+              <span class="pill">Hinglish-aware</span>
+              <span class="pill">OCR ready</span>
+              <span class="pill">Beginner-friendly code</span>
+            </div>
+          </div>
+
+          <label class="theme-toggle" for="themeSwitch">
+            <span>Dark mode</span>
+            <input type="checkbox" id="themeSwitch" />
+          </label>
+        </header>
+
+        <section class="workspace-grid">
+          <div class="stack">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">Smart Text Translation</p>
+                  <h2>Type or paste text</h2>
+                </div>
+                <span class="chip">Source language: Auto</span>
+              </div>
+
+              <label class="field-label" for="inputText">Input text</label>
+              <textarea
+                id="inputText"
+                rows="8"
+                placeholder="Example: tum kaha ho bro, kal milte hain?"
+              ></textarea>
+
+              <div class="inline-controls">
+                <div class="field">
+                  <label class="field-label" for="targetLanguage">Target language</label>
+                  <select id="targetLanguage"></select>
+                </div>
+
+                <div class="button-cluster">
+                  <button id="translateButton" class="primary-button" type="button">
+                    Translate text
+                  </button>
+                  <button id="pasteButton" class="secondary-button" type="button">
+                    Paste
+                  </button>
+                  <button id="clearButton" class="ghost-button" type="button">
+                    Clear
+                  </button>
+                </div>
+              </div>
+
+              <div class="status-area">
+                <div id="textLoader" class="loader hidden" aria-hidden="true"></div>
+                <p id="statusMessage" class="status-message" aria-live="polite">
+                  Ready for text translation.
+                </p>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">Image Translation</p>
+                  <h2>Upload an image</h2>
+                </div>
+                <span class="chip">Desktop + mobile</span>
+              </div>
+
+              <label class="upload-zone" for="imageInput" id="uploadZone">
+                <input
+                  id="imageInput"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  hidden
+                />
+                <span class="upload-title">Drop an image here or tap to browse</span>
+                <span class="upload-hint">
+                  OCR uses Tesseract.js in the browser. For clearer results, use
+                  sharp and well-lit images.
+                </span>
+              </label>
+
+              <div class="preview-frame">
+                <img id="imagePreview" alt="Selected image preview" class="hidden" />
+                <p id="imagePlaceholder">No image selected yet.</p>
+              </div>
+
+              <div class="button-cluster">
+                <button id="extractButton" class="secondary-button" type="button">
+                  Extract text
+                </button>
+                <button id="translateImageButton" class="primary-button" type="button">
+                  Translate image
+                </button>
+                <button id="removeImageButton" class="ghost-button" type="button">
+                  Remove image
+                </button>
+              </div>
+
+              <div class="status-area">
+                <div id="ocrLoader" class="loader hidden" aria-hidden="true"></div>
+                <p id="ocrStatusMessage" class="status-message" aria-live="polite">
+                  Upload an image to start OCR.
+                </p>
+              </div>
+
+              <div class="progress-shell hidden" id="ocrProgressShell" aria-hidden="true">
+                <div class="progress-bar">
+                  <span id="ocrProgressBar"></span>
+                </div>
+                <p id="ocrProgressLabel">OCR progress: 0%</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="stack">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">Text Output</p>
+                  <h2>AI translation result</h2>
+                </div>
+
+                <div class="button-cluster compact">
+                  <button id="copyTextButton" class="secondary-button" type="button">
+                    Copy
+                  </button>
+                  <button id="speakTextButton" class="secondary-button" type="button">
+                    Speak
+                  </button>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <article class="result-card">
+                  <p class="result-label">Original text</p>
+                  <p id="originalTextResult" class="result-value muted-result">
+                    Your original text will appear here.
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Detected language</p>
+                  <p id="detectedLanguageResult" class="result-value muted-result">
+                    Waiting for detection...
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Normalized text</p>
+                  <p id="normalizedTextResult" class="result-value muted-result">
+                    AI cleanup will appear here.
+                  </p>
+                </article>
+
+                <article class="result-card accent-card">
+                  <p class="result-label">Translated text</p>
+                  <p id="translatedTextResult" class="result-value">
+                    Final translation will appear here.
+                  </p>
+                </article>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">OCR Output</p>
+                  <h2>Extracted and translated image text</h2>
+                </div>
+
+                <div class="button-cluster compact">
+                  <button id="copyImageButton" class="secondary-button" type="button">
+                    Copy
+                  </button>
+                  <button id="speakImageButton" class="secondary-button" type="button">
+                    Speak
+                  </button>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <article class="result-card">
+                  <p class="result-label">Extracted text</p>
+                  <p id="extractedTextResult" class="result-value muted-result">
+                    OCR text will appear here.
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Detected language</p>
+                  <p id="imageDetectedLanguageResult" class="result-value muted-result">
+                    Waiting for OCR translation...
+                  </p>
+                </article>
+
+                <article class="result-card accent-card">
+                  <p class="result-label">Translated image text</p>
+                  <p id="imageTranslatedTextResult" class="result-value">
+                    Image translation will appear here.
+                  </p>
+                </article>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="info-strip">
+          <div>
+            <h2>How this version works</h2>
+            <p>
+              The frontend handles UI, theme, speech, clipboard, and OCR. The
+              optional backend sends text to an AI model for normalization,
+              language detection, and contextual translation.
+            </p>
+          </div>
+          <div class="info-list">
+            <span>Frontend: HTML, CSS, JavaScript</span>
+            <span>OCR: Tesseract.js</span>
+            <span>Backend: Node.js + Express + OpenAI</span>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
