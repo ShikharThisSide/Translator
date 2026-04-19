@@ -9,13 +9,14 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const publicDirectory = path.join(__dirname, "public");
 const app = express();
 const port = process.env.PORT || 3000;
 const client = createOpenAIClient();
 
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
-app.use(express.static(__dirname));
+app.use(express.static(publicDirectory));
 
 app.post("/api/translate", async (request, response) => {
   try {
@@ -38,7 +39,7 @@ app.post("/api/translate", async (request, response) => {
 });
 
 app.get("*", (_request, response) => {
-  response.sendFile(path.join(__dirname, "index.html"));
+  response.sendFile(path.join(publicDirectory, "index.html"));
 });
 
 app.listen(port, () => {
