@@ -239,13 +239,17 @@ async function requestTranslation(text, targetCode, sourceType) {
 
   const detectedLanguage = detectLanguageHeuristically(text);
 
-  if (detectedLanguage.code === "hi-Latn") {
+  if (detectedLanguage.code === "hi-Latn" && !lastError?.message) {
     throw new Error(
       "For accurate Hinglish translation, start the backend with npm install and npm start, then open http://localhost:3000."
     );
   }
 
   if (lastError) {
+    if (detectedLanguage.code === "hi-Latn") {
+      throw new Error(lastError.message || "The AI translation service is unavailable right now.");
+    }
+
     return translateInBrowser(text, targetCode, sourceType);
   }
 
