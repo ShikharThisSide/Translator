@@ -22,7 +22,7 @@
         <header class="hero">
           <div class="hero-copy">
             <p class="eyebrow">AI Translation Studio</p>
-            <h1>Translate messy text, Hinglish, and images with one workflow.</h1>
+            <h1>Translate your text here</h1>
             <p class="hero-text">
               The app auto-detects the source language, cleans spelling when
               needed, extracts text from images, and translates the result into
@@ -30,9 +30,6 @@
             </p>
             <div class="hero-tags">
               <span class="pill">Auto-detect</span>
-              <span class="pill">Hinglish-aware</span>
-              <span class="pill">OCR ready</span>
-              <span class="pill">Beginner-friendly code</span>
             </div>
           </div>
 
@@ -57,7 +54,7 @@
               <textarea
                 id="inputText"
                 rows="8"
-                placeholder="Example: tum kaha ho bro, kal milte hain?"
+                placeholder="Example: Hey, how are you?"
               ></textarea>
 
               <div class="inline-controls">
@@ -130,9 +127,7 @@
 
               <div class="status-area">
                 <div id="ocrLoader" class="loader hidden" aria-hidden="true"></div>
-                <p id="ocrStatusMessage" class="status-message" aria-live="polite">
-                  Upload an image to start OCR.
-                </p>
+                <p id="ocrStatusMessage" class="status-message" aria-live="polite"></p>
               </div>
 
               <div class="progress-shell hidden" id="ocrProgressShell" aria-hidden="true">
@@ -191,13 +186,6 @@
                   <p class="result-label">Extracted text</p>
                   <p id="extractedTextResult" class="result-value muted-result">
                     OCR text will appear here.
-                  </p>
-                </article>
-
-                <article class="result-card">
-                  <p class="result-label">Detected language</p>
-                  <p id="imageDetectedLanguageResult" class="result-value muted-result">
-                    Waiting for OCR translation...
                   </p>
                 </article>
 
