@@ -581,6 +581,7 @@ async function handleTextTranslation() {
   toggleLoader(textLoader, true);
   setButtonBusy(translateButton, true, "Translating...", "Translate text");
   setMessage(statusMessage, "Sending text to the AI translator...");
+  updateResult(translatedTextResult, "", "Final translation will appear here.");
 
   try {
     const result = await requestTranslation(text, targetCode, "text");
