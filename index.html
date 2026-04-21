@@ -22,7 +22,7 @@
         <header class="hero">
           <div class="hero-copy">
             <p class="eyebrow">AI Translation Studio</p>
-            <h1>Translate your text here</h1>
+            <h1>Translate messy text, Hinglish, and images with one workflow.</h1>
             <p class="hero-text">
               The app auto-detects the source language, cleans spelling when
               needed, extracts text from images, and translates the result into
@@ -30,6 +30,9 @@
             </p>
             <div class="hero-tags">
               <span class="pill">Auto-detect</span>
+              <span class="pill">Hinglish-aware</span>
+              <span class="pill">OCR ready</span>
+              <span class="pill">Beginner-friendly code</span>
             </div>
           </div>
 
@@ -54,7 +57,7 @@
               <textarea
                 id="inputText"
                 rows="8"
-                placeholder="Example: Hey, how are you?"
+                placeholder="Example: tum kaha ho bro, kal milte hain?"
               ></textarea>
 
               <div class="inline-controls">
@@ -127,7 +130,9 @@
 
               <div class="status-area">
                 <div id="ocrLoader" class="loader hidden" aria-hidden="true"></div>
-                <p id="ocrStatusMessage" class="status-message" aria-live="polite"></p>
+                <p id="ocrStatusMessage" class="status-message" aria-live="polite">
+                  Upload an image to start OCR.
+                </p>
               </div>
 
               <div class="progress-shell hidden" id="ocrProgressShell" aria-hidden="true">
@@ -144,17 +149,41 @@
               <div class="panel-heading">
                 <div>
                   <p class="panel-kicker">Text Output</p>
-                  <h2>Translated text</h2>
+                  <h2>AI translation result</h2>
                 </div>
 
                 <div class="button-cluster compact">
                   <button id="copyTextButton" class="secondary-button" type="button">
                     Copy
                   </button>
+                  <button id="speakTextButton" class="secondary-button" type="button">
+                    Speak
+                  </button>
                 </div>
               </div>
 
               <div class="result-grid">
+                <article class="result-card">
+                  <p class="result-label">Original text</p>
+                  <p id="originalTextResult" class="result-value muted-result">
+                    Your original text will appear here.
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Detected language</p>
+                  <p id="detectedLanguageResult" class="result-value muted-result">
+                    Waiting for detection...
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Normalized text</p>
+                  <p id="normalizedTextResult" class="result-value muted-result">
+                    AI cleanup will appear here.
+                  </p>
+                </article>
+
                 <article class="result-card accent-card">
                   <p class="result-label">Translated text</p>
                   <p id="translatedTextResult" class="result-value">
@@ -186,6 +215,13 @@
                   <p class="result-label">Extracted text</p>
                   <p id="extractedTextResult" class="result-value muted-result">
                     OCR text will appear here.
+                  </p>
+                </article>
+
+                <article class="result-card">
+                  <p class="result-label">Detected language</p>
+                  <p id="imageDetectedLanguageResult" class="result-value muted-result">
+                    Waiting for OCR translation...
                   </p>
                 </article>
 
