@@ -88,7 +88,7 @@ const state = {
   extractedText: "",
   textTranslation: "",
   imageTranslation: "",
-  textTargetLanguage: "en"
+  textTargetLanguage: "fr"
 };
 
 const romanHindiDictionary = {
