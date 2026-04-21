@@ -167,7 +167,7 @@ function resetTextResults() {
 }
 
 function resetImageResults() {
-  updateResult(extractedTextResult, "", "OCR text will appear here.");
+  updateResult(extractedTextResult, "", "Your text will appear here.");
   updateResult(imageDetectedLanguageResult, "", "Waiting for OCR translation...");
   updateResult(imageTranslatedTextResult, "", "Image translation will appear here.");
   state.extractedText = "";
@@ -639,12 +639,12 @@ async function extractTextFromImage() {
     }
 
     state.extractedText = extractedText;
-    updateResult(extractedTextResult, extractedText, "OCR text will appear here.");
+    updateResult(extractedTextResult, extractedText, "Your text will appear here.");
     setMessage(ocrStatusMessage, "OCR completed successfully.", "success");
     return extractedText;
   } catch (error) {
     state.extractedText = "";
-    updateResult(extractedTextResult, "", "OCR text will appear here.");
+    updateResult(extractedTextResult, "", "Your text will appear here.");
     setMessage(ocrStatusMessage, error.message || "OCR failed.", "error");
     return "";
   } finally {
